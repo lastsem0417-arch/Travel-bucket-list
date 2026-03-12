@@ -42,11 +42,13 @@ alert("Invalid email or password");
 
 return(
 
-<div className="auth-container">
+<div style={styles.container}>
 
-<h2>Login</h2>
+<div style={styles.card}>
 
-<form onSubmit={handleSubmit}>
+<h2 style={styles.title}>Welcome Back</h2>
+
+<form onSubmit={handleSubmit} style={styles.form}>
 
 <input
 type="email"
@@ -54,6 +56,7 @@ placeholder="Email"
 value={email}
 onChange={(e)=>setEmail(e.target.value)}
 required
+style={styles.input}
 />
 
 <input
@@ -62,22 +65,88 @@ placeholder="Password"
 value={password}
 onChange={(e)=>setPassword(e.target.value)}
 required
+style={styles.input}
 />
 
-<button type="submit">
+<button type="submit" style={styles.button}>
 Login
 </button>
 
 </form>
 
-<p>
+<p style={styles.text}>
 Don't have an account?{" "}
-<Link to="/register">Register</Link>
+<Link to="/register" style={styles.link}>Register</Link>
 </p>
 
 </div>
 
+</div>
+
 );
+
+};
+
+const styles = {
+
+container:{
+height:"100vh",
+display:"flex",
+justifyContent:"center",
+alignItems:"center",
+background:"linear-gradient(135deg,#020617,#1e293b,#0f172a)",
+},
+
+card:{
+background:"rgba(255,255,255,0.05)",
+backdropFilter:"blur(10px)",
+padding:"40px",
+borderRadius:"12px",
+width:"350px",
+textAlign:"center",
+boxShadow:"0 10px 25px rgba(0,0,0,0.5)"
+},
+
+title:{
+color:"#fff",
+marginBottom:"20px"
+},
+
+form:{
+display:"flex",
+flexDirection:"column",
+gap:"15px"
+},
+
+input:{
+padding:"12px",
+borderRadius:"6px",
+border:"none",
+outline:"none",
+background:"#1e293b",
+color:"#fff"
+},
+
+button:{
+padding:"12px",
+borderRadius:"6px",
+border:"none",
+background:"#6366f1",
+color:"#fff",
+fontWeight:"bold",
+cursor:"pointer"
+},
+
+text:{
+color:"#cbd5f5",
+marginTop:"15px"
+},
+
+link:{
+color:"#818cf8",
+textDecoration:"none",
+fontWeight:"bold"
+}
 
 };
 
