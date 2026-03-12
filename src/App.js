@@ -1,75 +1,153 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import { TravelProvider } from './context/TravelContext';
-import Layout from './components/Layout/Layout';
-import Home from './pages/Home';
-import Places from './pages/Places';
-import AddPlace from './pages/AddPlace';
-import PlaceDetail from './pages/PlaceDetail';
-import Statistics from './pages/Statistics';
-import Settings from './pages/Settings';
-import './styles/App.css';
+import React from "react";
+import {BrowserRouter as Router,Routes,Route,Navigate} from "react-router-dom";
 
-function App() {
-  return (
-    <TravelProvider>
-      <Router>
-        <div className="App">
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: '#ffffff',
-                color: '#1f2937',
-                borderRadius: '12px',
-                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                border: '1px solid rgba(229, 231, 235, 0.8)',
-                fontSize: '14px',
-                maxWidth: '400px'
-              },
-              success: {
-                iconTheme: {
-                  primary: '#10b981',
-                  secondary: '#ffffff'
-                },
-                style: {
-                  border: '1px solid rgba(16, 185, 129, 0.2)'
-                }
-              },
-              error: {
-                iconTheme: {
-                  primary: '#ef4444',
-                  secondary: '#ffffff'
-                },
-                style: {
-                  border: '1px solid rgba(239, 68, 68, 0.2)'
-                }
-              },
-              loading: {
-                iconTheme: {
-                  primary: '#3b82f6',
-                  secondary: '#ffffff'
-                }
-              }
-            }}
-          />
+import {AuthProvider} from "./context/AuthContext";
+import {TravelProvider} from "./context/TravelContext";
 
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/places" element={<Places />} />
-              <Route path="/add" element={<AddPlace />} />
-              <Route path="/place/:id" element={<PlaceDetail />} />
-              <Route path="/stats" element={<Statistics />} />
-              <Route path="/settings" element={<Settings />} />
-            </Routes>
-          </Layout>
-        </div>
-      </Router>
-    </TravelProvider>
-  );
+import ProtectedRoute from "./components/ProtectedRoute";
+
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+import Layout from "./components/Layout/Layout";
+import Home from "./pages/Home";
+import Places from "./pages/Places";
+import AddPlace from "./pages/AddPlace";
+import PlaceDetail from "./pages/PlaceDetail";
+import Statistics from "./pages/Statistics";
+import Settings from "./pages/Settings";
+import MapPage from "./pages/MapPage";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminRoute from "./components/AdminRoute";
+
+function App(){
+
+return(
+
+<AuthProvider>
+
+<TravelProvider>
+
+<Router>
+
+<Routes>
+
+{/* Default route */}
+
+<Route path="/" element={<Navigate to="/dashboard"/>} />
+
+{/* Auth Routes */}
+
+<Route path="/login" element={<Login/>}/>
+<Route path="/register" element={<Register/>}/>
+
+{/* Protected Routes */}
+
+<Route
+path="/dashboard"
+element={
+<ProtectedRoute>
+<Layout>
+<Home/>
+</Layout>
+</ProtectedRoute>
+}
+/>
+<Route
+path="/admin"
+element={
+<ProtectedRoute>
+<Layout>
+<AdminDashboard/>
+</Layout>
+</ProtectedRoute>
+}
+/>
+<Route
+path="/admin"
+element={
+<AdminRoute>
+<Layout>
+<AdminDashboard/>
+</Layout>
+</AdminRoute>
+}
+/>
+<Route
+path="/map"
+element={
+<ProtectedRoute>
+<Layout>
+<MapPage/>
+</Layout>
+</ProtectedRoute>
+}
+/>
+<Route
+path="/places"
+element={
+<ProtectedRoute>
+<Layout>
+<Places/>
+</Layout>
+</ProtectedRoute>
+}
+/>
+
+<Route
+path="/add"
+element={
+<ProtectedRoute>
+<Layout>
+<AddPlace/>
+</Layout>
+</ProtectedRoute>
+}
+/>
+
+<Route
+path="/place/:id"
+element={
+<ProtectedRoute>
+<Layout>
+<PlaceDetail/>
+</Layout>
+</ProtectedRoute>
+}
+/>
+
+<Route
+path="/stats"
+element={
+<ProtectedRoute>
+<Layout>
+<Statistics/>
+</Layout>
+</ProtectedRoute>
+}
+/>
+
+<Route
+path="/settings"
+element={
+<ProtectedRoute>
+<Layout>
+<Settings/>
+</Layout>
+</ProtectedRoute>
+}
+/>
+
+</Routes>
+
+</Router>
+
+</TravelProvider>
+
+</AuthProvider>
+
+);
+
 }
 
 export default App;

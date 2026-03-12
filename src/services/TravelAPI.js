@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = "xTiXK2H9BFZcJ3S7HAG9HY9vFy2EbxuM7VTZ2qkXMcI";
+const API_KEY = "818e4eba40364923b6e161ebcca570ff";
 
 class TravelAPIService {
   constructor() {

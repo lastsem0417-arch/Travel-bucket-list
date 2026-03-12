@@ -5,19 +5,24 @@ import { useTravel } from '../../context/TravelContext';
 import './PlaceCard.css';
 
 const PlaceCard = ({ place, viewMode }) => {
-  const { dispatch } = useTravel();
+
+  const { deletePlace, toggleVisited } = useTravel();
 
   const handleToggleVisited = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch({ type: 'TOGGLE_VISITED', payload: place.id });
+
+    toggleVisited(place._id);
   };
 
   const handleDelete = (e) => {
     e.preventDefault();
     e.stopPropagation();
+
     if (window.confirm(`Are you sure you want to delete "${place.name}"?`)) {
-      dispatch({ type: 'DELETE_PLACE', payload: place.id });
+
+      deletePlace(place._id);
+
     }
   };
 
@@ -49,7 +54,8 @@ const PlaceCard = ({ place, viewMode }) => {
       whileHover={{ y: -5, transition: { duration: 0.2 } }}
       className={`place-card ${viewMode} ${place.isVisited ? 'visited' : 'planned'}`}
     >
-      <Link to={`/place/${place.id}`} className="place-card-link">
+      <Link to={`/place/${place._id}`} className="place-card-link">
+
         <div className="place-image">
           <img 
             src={place.imageUrl || '/placeholder-image.jpg'} 
@@ -58,35 +64,48 @@ const PlaceCard = ({ place, viewMode }) => {
               e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect width="300" height="200" fill="%23f3f4f6"/><text x="150" y="100" text-anchor="middle" fill="%23666" font-size="16">No Image</text></svg>';
             }}
           />
+
           <div className="place-overlay">
+
             <div className={`place-status ${place.isVisited ? 'visited' : 'planned'}`}>
               {place.isVisited ? '✅' : '📌'}
             </div>
-            <div className={`priority-badge priority-${place.priority.toLowerCase()}`}>
+
+            <div className={`priority-badge priority-${place.priority?.toLowerCase()}`}>
               {place.priority}
             </div>
+
           </div>
         </div>
 
         <div className="place-content">
+
           <div className="place-header">
             <h3 className="place-name">{place.name}</h3>
             <p className="place-country">📍 {place.country}</p>
           </div>
 
           <p className="place-description">
-            {place.description.length > 100 
+            {place.description?.length > 100 
               ? `${place.description.substring(0, 100)}...` 
               : place.description
             }
           </p>
 
           <div className="place-meta">
-            <div className="place-budget">💰 ${place.estimatedBudget?.toLocaleString()}</div>
-            <div className="place-type">🎯 {place.tripType}</div>
+
+            <div className="place-budget">
+              💰 ${place.estimatedBudget?.toLocaleString()}
+            </div>
+
+            <div className="place-type">
+              🎯 {place.tripType}
+            </div>
+
           </div>
 
           <div className="place-actions">
+
             <motion.button
               className={`action-btn toggle-visited ${place.isVisited ? 'visited' : 'planned'}`}
               onClick={handleToggleVisited}
@@ -106,7 +125,9 @@ const PlaceCard = ({ place, viewMode }) => {
             >
               🗑️
             </motion.button>
+
           </div>
+
         </div>
       </Link>
     </motion.div>

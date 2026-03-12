@@ -1,0 +1,73 @@
+.admin-dashboard{
+padding:30px;
+}
+
+.admin-dashboard .admin-stats{
+display:flex;
+gap:20px;
+margin-bottom:30px;
+}
+
+.admin-dashboard .admin-stat-card{
+background:#6366f1;
+color:white;
+padding:20px;
+border-radius:10px;
+width:200px;
+text-align:center;
+}
+
+.admin-dashboard .admin-users{
+display:grid;
+grid-template-columns:repeat(auto-fill,200px);
+gap:20px;
+margin-bottom:40px;
+}
+
+.admin-dashboard .admin-user-card{
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.admin-dashboard .admin-role{
+background:#10b981;
+color:white;
+padding:4px 8px;
+border-radius:5px;
+font-size:12px;
+}
+
+.admin-dashboard .admin-places{
+display:grid;
+grid-template-columns:repeat(auto-fill,250px);
+gap:20px;
+}
+
+.admin-dashboard .admin-place-card{
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.admin-dashboard .admin-place-card img{
+width:100%;
+height:150px;
+object-fit:cover;
+}
+
+.admin-dashboard .admin-place-info{
+padding:15px;
+}
+
+.admin-dashboard .admin-delete{
+margin-top:10px;
+background:red;
+color:white;
+border:none;
+padding:6px 10px;
+border-radius:6px;
+cursor:pointer;
+}
