@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api"
+  baseURL: "https://travel-bucket-list-4wmy.onrender.com/api"
 });
 
 // attach JWT token to every request
