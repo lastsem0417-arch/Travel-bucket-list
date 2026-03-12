@@ -8,7 +8,7 @@ deleteDestination,
 toggleVisited
 } = require("../controllers/destinationController");
 
-const authMiddleware = require("../middleware/authmiddleware");
+const authMiddleware = require("../middleware/authMiddleware");
 
 router.get("/", authMiddleware, getDestinations);
 router.post("/add", authMiddleware, addDestination);
