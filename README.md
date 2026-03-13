@@ -9,8 +9,8 @@ An **Admin Dashboard** is also included to manage users and destinations.
 
 # 🚀 Live Demo
 
-Frontend: https://your-netlify-link.netlify.app
-Backend API: https://your-render-link.onrender.com
+Frontend: https://travel-bucket-list-tcat.vercel.app/
+Backend API: https://travel-bucket-list-4wmy.onrender.com
 
 ---
 
