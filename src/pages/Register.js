@@ -1,90 +1,114 @@
-import React,{useState} from "react";
-import {useNavigate,Link} from "react-router-dom";
-import {useAuth} from "../context/AuthContext";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { motion } from "framer-motion";
 
-function Register(){
+function Register() {
 
-const {register} = useAuth();
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
-const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading,setLoading] = useState(false);
 
-const [name,setName] = useState("");
-const [email,setEmail] = useState("");
-const [password,setPassword] = useState("");
+  const handleSubmit = async (e) => {
 
-const handleSubmit = async (e) => {
+    e.preventDefault();
 
-e.preventDefault();
+    try {
 
-try {
+      setLoading(true);
 
-await register(name, email, password);
+      await register(name,email,password);
 
-alert("Registration successful");
+      alert("🎉 Registration successful");
 
-navigate("/login");
+      navigate("/login");
 
-} catch (err) {
+    } catch (err) {
 
-alert("Registration failed");
+      alert("❌ Registration failed");
 
-}
+    }
 
-};
+    setLoading(false);
 
-return(
+  };
 
-<div style={styles.container}>
+  return (
 
-<div style={styles.card}>
+    <div style={styles.container}>
 
-<h2 style={styles.title}>Create Account</h2>
+      <motion.div
+        style={styles.card}
+        initial={{opacity:0,y:30}}
+        animate={{opacity:1,y:0}}
+        transition={{duration:0.6}}
+      >
 
-<form onSubmit={handleSubmit} style={styles.form}>
+        <motion.h2
+          style={styles.title}
+          initial={{opacity:0}}
+          animate={{opacity:1}}
+          transition={{delay:0.2}}
+        >
+          ✨ Create Account
+        </motion.h2>
 
-<input
-type="text"
-placeholder="Name"
-value={name}
-onChange={(e)=>setName(e.target.value)}
-required
-style={styles.input}
-/>
+        <form onSubmit={handleSubmit} style={styles.form}>
 
-<input
-type="email"
-placeholder="Email"
-value={email}
-onChange={(e)=>setEmail(e.target.value)}
-required
-style={styles.input}
-/>
+          <input
+            type="text"
+            placeholder="Your Name"
+            value={name}
+            onChange={(e)=>setName(e.target.value)}
+            required
+            style={styles.input}
+          />
 
-<input
-type="password"
-placeholder="Password"
-value={password}
-onChange={(e)=>setPassword(e.target.value)}
-required
-style={styles.input}
-/>
+          <input
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e)=>setEmail(e.target.value)}
+            required
+            style={styles.input}
+          />
 
-<button type="submit" style={styles.button}>
-Register
-</button>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e)=>setPassword(e.target.value)}
+            required
+            style={styles.input}
+          />
 
-</form>
+          <motion.button
+            type="submit"
+            style={styles.button}
+            whileHover={{scale:1.05}}
+            whileTap={{scale:0.95}}
+          >
+            {loading ? "Creating..." : "Register"}
+          </motion.button>
 
-<p style={styles.text}>
-Already have account?{" "}
-<Link to="/login" style={styles.link}>Login</Link>
-</p>
+        </form>
 
-</div>
+        <p style={styles.text}>
+          Already have account?{" "}
+          <Link to="/login" style={styles.link}>
+            Login
+          </Link>
+        </p>
 
-</div>
+      </motion.div>
 
-);
+    </div>
+
+  );
 
 }
 
@@ -99,54 +123,60 @@ background:"linear-gradient(135deg,#020617,#1e293b,#0f172a)"
 },
 
 card:{
-background:"rgba(255,255,255,0.05)",
-backdropFilter:"blur(10px)",
-padding:"40px",
-borderRadius:"12px",
-width:"350px",
+background:"rgba(255,255,255,0.08)",
+backdropFilter:"blur(15px)",
+padding:"45px",
+borderRadius:"16px",
+width:"380px",
 textAlign:"center",
-boxShadow:"0 10px 25px rgba(0,0,0,0.5)"
+boxShadow:"0 20px 40px rgba(0,0,0,0.6)"
 },
 
 title:{
 color:"#fff",
-marginBottom:"20px"
+marginBottom:"25px",
+fontSize:"26px",
+fontWeight:"600"
 },
 
 form:{
 display:"flex",
 flexDirection:"column",
-gap:"15px"
+gap:"18px"
 },
 
 input:{
-padding:"12px",
-borderRadius:"6px",
-border:"none",
+padding:"13px",
+borderRadius:"8px",
+border:"1px solid rgba(255,255,255,0.1)",
 outline:"none",
 background:"#1e293b",
-color:"#fff"
+color:"#fff",
+fontSize:"15px"
 },
 
 button:{
-padding:"12px",
-borderRadius:"6px",
+padding:"13px",
+borderRadius:"8px",
 border:"none",
-background:"#22c55e",
+background:"linear-gradient(90deg,#22c55e,#16a34a)",
 color:"#fff",
 fontWeight:"bold",
-cursor:"pointer"
+fontSize:"15px",
+cursor:"pointer",
+marginTop:"10px"
 },
 
 text:{
 color:"#cbd5f5",
-marginTop:"15px"
+marginTop:"20px",
+fontSize:"14px"
 },
 
 link:{
-color:"#818cf8",
+color:"#60a5fa",
 textDecoration:"none",
-fontWeight:"bold"
+fontWeight:"600"
 }
 
 };
